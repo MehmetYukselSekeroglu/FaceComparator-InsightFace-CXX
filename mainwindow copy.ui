@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Yüz Tanıma Sistemi v1.0</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* --- Genel Stil --- */
+QWidget {
+    color: #F0F0F0;
+    background-color: #2D2D2D;
+    font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+}
+
+QMainWindow {
+    background-color: #2D2D2D;
+}
+
+/* --- Tab Widget Stili --- */
+QTabWidget::pane {
+    border: 1px solid #444;
+    border-top: 0px;
+    background-color: #3C3C3C;
+}
+
+QTabWidget::tab-bar {
+    left: 10px; /* Tabların soldan başlaması için */
+}
+
+QTabBar::tab {
+    background-color: #2D2D2D;
+    color: #B0B0B0;
+    border: 1px solid #444;
+    border-bottom: none;
+    padding: 10px 25px;
+    font-weight: bold;
+    min-width: 100px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background-color: #3C3C3C; /* Pane rengi ile aynı */
+    color: #FFFFFF;
+    border-bottom: 2px solid #0078D7; /* Seçili tab için alt çizgi */
+}
+
+QTabBar::tab:!selected:hover {
+    background-color: #383838;
+    color: #E0E0E0;
+}
+
+/* --- Buton Stili --- */
+QPushButton {
+    background-color: #0078D7;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background-color: #008CFF;
+}
+
+QPushButton:pressed {
+    background-color: #006ABC;
+}
+
+QPushButton:disabled {
+    background-color: #555;
+    color: #888;
+}
+
+/* --- TextBrowser / Log Alanı --- */
+QTextBrowser, QPlainTextEdit {
+    background-color: #252525;
+    border: 1px solid #444;
+    color: #E0E0E0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* --- Resim Görüntüleme Alanı --- */
+QLabel#label_image_tab_1, 
+QLabel#label_source_face_tab_2, 
+QLabel#label_target_face_tab_2 {
+    background-color: #252525;
+    border: 2px dashed #555;
+    color: #777;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* --- Progress Bar Stili --- */
+QProgressBar {
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #3C3C3C;
+    text-align: center;
+    color: #F0F0F0;
+    font-weight: bold;
+}
+
+QProgressBar::chunk {
+    background-color: #0078D7;
+    border-radius: 4px;
+    margin: 1px;
+}
+
+/* --- Splitter Stili --- */
+QSplitter::handle {
+    background-color: #444;
+}
+
+QSplitter::handle:horizontal {
+    width: 5px;
+}
+
+QSplitter::handle:vertical {
+    height: 5px;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab_detector">
+       <attribute name="title">
+        <string>Yüz Tespit</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QSplitter" name="splitter_tab_1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QFrame" name="frame_image_tab_1">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_image_tab_1">
+              <property name="text">
+               <string>Resim Yüklenecek Alan</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="widget" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>400</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QPushButton" name="pushButton_selectFile_tab_1">
+              <property name="text">
+               <string>Dosya Seç</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QPushButton" name="pushButton_detect_tab_1">
+                <property name="text">
+                 <string>Tespit Et</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_clear_tab_1">
+                <property name="styleSheet">
+                 <string notr="true">/* Temizle butonu için farklı renk */
+background-color: #C0392B;
+</string>
+                </property>
+                <property name="text">
+                 <string>Temizle</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="textBrowser_output_tab_1">
+              <property name="placeholderText">
+               <string>Tespit sonuçları burada görünecek...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_comparator">
+       <attribute name="title">
+        <string>Yüz Karşılaştırma</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QSplitter" name="splitter_tab_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="widget_source" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_source_face_tab_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Kaynak Resim</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_select_source_image_tab_2">
+              <property name="text">
+               <string>Kaynak Resmi Seç</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="widget_target" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_target_face_tab_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Hedef Resim</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_select_target_image_tab_2">
+              <property name="text">
+               <string>Hedef Resmi Seç</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_compare_tab_2">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>KARŞILAŞTIR</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_clear_tab_2">
+            <property name="styleSheet">
+             <string notr="true">/* Temizle butonu için farklı renk */
+background-color: #C0392B;</string>
+            </property>
+            <property name="text">
+             <string>Temizle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBar_sim_rate_tab_2">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="textBrowser_output_tab_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>150</height>
+           </size>
+          </property>
+          <property name="placeholderText">
+           <string>Karşılaştırma sonuçları burada görünecek...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_about">
+       <attribute name="title">
+        <string>Hakkında</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_about">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Yüz Tanıma ve Karşılaştırma Uygulaması&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Bu uygulama Qt 6, OpenCV ve ONNX Runtime kullanılarak geliştirilmiştir.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#808080;&quot;&gt;(c) 2025&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
